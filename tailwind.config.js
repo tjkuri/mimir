@@ -12,6 +12,7 @@ module.exports = {
       'ghostWhite': '#fbf9ff',
       'bittersweet': '#f25f5c',
     },
+    fontFamily: {},
     extend: {},
   },
   plugins: [],

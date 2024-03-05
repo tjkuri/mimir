@@ -14,8 +14,8 @@ export class Home extends React.Component {
         return (
             <div className="flex justify-center items-center h-screen">
                 <div className="text-center">
-                    <h1 className="text-naplesYellow text-3xl font-bold">MIMIR</h1>
-                    <p className="text-sm mt-2 px-8">
+                    <h1 className="text-naplesYellow text-5xl font-bold">MIMIR</h1>
+                    <p className="text-5sm mt-3 px-8">
                         Renowned for his unparalleled wisdom, the the most knowledgable giant takes on the Vegas line setters.
                     </p>
                     {/* <FontAwesomeIcon icon={faBasketball} />            */}
