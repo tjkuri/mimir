@@ -1,3 +1,30 @@
 @tailwind utils;
 @tailwind components;
 
+/* Colors */
+.space-cadet {
+    color: #1c2541;
+}
+
+.verdigris {
+    color: #48a9a6;
+}
+
+.naples-yellow {
+    color: #f4d35e;
+}
+
+.whost-white {
+    color: #fbf9ff;
+}
+
+.bittersweet {
+    color: #f25f5c;
+}
+
+/* Misc. */
+.app {
+    background-color: #1c2541;
+    min-height: 200vh; /* Ensures the background covers the entire viewport */
+  }
+  
