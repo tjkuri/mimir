@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import "./index.css"
 
-import {Welcome} from './components/WelcomePage'
+import {Home} from './components/Home'
 
-ReactDOM.render(
-    <div className="app">
-      <Welcome/>        
-    </div>
-    ,document.getElementById('root')
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <div className='h-screen bg-spaceCadet text-verdigris'>
+    <Home />
+  </div>
 );
