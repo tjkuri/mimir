@@ -16,7 +16,7 @@ export class Home extends React.Component {
                 <div className="text-center">
                     <h1 className="text-naplesYellow text-5xl font-bold">MIMIR</h1>
                     <p className="text-5sm mt-3 px-8">
-                        Renowned for his unparalleled wisdom, the the most knowledgable giant takes on the Vegas line setters.
+                        Renowned for his unparalleled wisdom, the most knowledgable giant takes on the Vegas line setters.
                     </p>
                     {/* <FontAwesomeIcon icon={faBasketball} />            */}
                 </div>
