@@ -10,7 +10,7 @@ import {BasketBall} from './components/Basketball'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <div className='h-screen bg-spaceCadet text-verdigris'>
+  <div className='h-screen bg-spaceCadet'>
   <Router>
     <Routes>
         <Route path="/" element={<Home/>} />
