@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import "./index.css"
 
-import {Home} from './components/Home'
-import {BasketBall} from './components/Basketball'
+import Home from './components/Home'
+import BasketBall from './components/Basketball'
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
