@@ -23,6 +23,7 @@ const variants = {
     },
 };
 
+//Got the code for this loading bar from https://www.hover.dev/components/loaders
 const BarLoader = () => {
     return (
         <motion.div
