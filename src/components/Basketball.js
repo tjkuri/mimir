@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { motion } from "framer-motion"; //For loading bar
@@ -71,18 +72,22 @@ export default function BasketBall() {
     let openGamesList = games.filter((game) => game.status !== 'Final')
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center h-screen">
             {isLoading && <div className="grid place-content-center bg-violet-600 px-4 py-24">
                 <BarLoader />
             </div>}
             {error && <p>Error: {error.message}</p>}
             {!isLoading && (
-                <div className="flex flex-col space-y-10"> 
+                <div className="flex flex-col space-y-10">
                     <OpenGames games={openGamesList} />
                     <ClosedGames games={closedGamesList} />
                 </div>
             )}
-
+            <Link to="/">
+                <button className="rounded-full px-8 py-2 mt-6 bg-bittersweet hover:bg-ghostWhite hover:text-verdigris">
+                    Go Home
+                </button>
+            </Link>
         </div>
     )
 }
