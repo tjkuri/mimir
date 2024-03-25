@@ -4,7 +4,9 @@ import axios from 'axios';
 import { motion } from "framer-motion"; //For loading bar
 
 import { YGGDRASIL_URL } from '../config';  // Import backend address
-import NbaTotals from './NbaTotals';
+
+import ClosedGames from "./ClosedGames";
+import OpenGames from "./OpenGames";
 
 const variants = {
     initial: {
@@ -55,7 +57,8 @@ export default function BasketBall() {
                 YGGDRASIL_URL + '/api/nba/totals'
             ).then(response => {
                 setGames(response.data);
-                setIsLoading(false)}
+                setIsLoading(false)
+            }
             ).catch(error => {
                 console.error(error);
                 setError(error)
@@ -64,15 +67,22 @@ export default function BasketBall() {
         fetchData();
     }, []);
 
+    let closedGamesList = games.filter((game) => game.status === 'Final')
+    let openGamesList = games.filter((game) => game.status !== 'Final')
+
     return (
         <div className="flex justify-center items-center h-screen">
             {isLoading && <div className="grid place-content-center bg-violet-600 px-4 py-24">
                 <BarLoader />
             </div>}
             {error && <p>Error: {error.message}</p>}
-            {games && games.map((game) => (
-                <NbaTotals key={game.id} game={game} />
-            ))}
+            {!isLoading && (
+                <div className="flex flex-col space-y-10"> 
+                    <ClosedGames games={closedGamesList} />
+                    <OpenGames games={openGamesList} />
+                </div>
+            )}
+
         </div>
     )
 }
