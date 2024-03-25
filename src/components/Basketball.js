@@ -78,8 +78,8 @@ export default function BasketBall() {
             {error && <p>Error: {error.message}</p>}
             {!isLoading && (
                 <div className="flex flex-col space-y-10"> 
-                    <ClosedGames games={closedGamesList} />
                     <OpenGames games={openGamesList} />
+                    <ClosedGames games={closedGamesList} />
                 </div>
             )}
 
