@@ -1,4 +1,5 @@
 # Journal
+
 ## 03-21-2024
 Using some stuff from this https://www.hover.dev site. they have some cool front end things, saves me the trouble of struggling with react to get cool/modern looking things.
 
