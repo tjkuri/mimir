@@ -3,7 +3,6 @@ import React from 'react';
 import ClosedGameRow from './ClosedGameRow';
 
 export default function ClosedGames({ games }) {
-    if (games.length === 0) {return <h1>HIIII</h1>}
     return (
         <table className="table-auto">
             <thead className='text-naplesYellow border-b border-neutral-200'>
