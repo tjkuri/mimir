@@ -11,7 +11,20 @@ function getStatus (game) {
 export default function OpenGameRow({ game }) {
   const statusString = getStatus(game)
   let o_u = game.myLine >= game.draftkings_line ? 'O' : 'U';
-  let play = false;
+  let plays = game.lastSix.reduce(
+    (acc, value) => {
+      if (value > game.draftkings_line) {
+        acc[0] += 1; // count for "over"
+      } else if (value < game.draftkings_line) {
+        acc[1] += 1; // count for "under"
+      } else {
+        acc[2] += 1; // count for "equal"
+      }
+      return acc;
+    },
+    [0, 0, 0] // Initial values for "over", "under", and "equal"
+  );
+  let play_display = o_u === 'O' ? `${plays[0]}-${plays[2]}-${plays[1]}`:`${plays[1]}-${plays[2]}-${plays[0]}`
   
   return (
       <tr className='text-bittersweet' key={game.id}>
@@ -21,7 +34,7 @@ export default function OpenGameRow({ game }) {
             <td className="px-4">{statusString == 'Final' ? '-' : game.draftkings_line}</td>
             <td className="px-4">{statusString == 'Final' ? '-' : Math.abs(game.myLine - game.draftkings_line).toFixed(2)}</td>
             <td className="px-4">{statusString == 'Final' ? '-' : o_u}</td>
-            <td className="px-4">{statusString == 'Final' ? '-' : play}</td>
+            <td className="px-4">{statusString == 'Final' ? '-' : play_display}</td>
       </tr>
   );
 }

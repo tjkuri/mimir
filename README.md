@@ -7,7 +7,7 @@ In the present day he uses his knowledge to take on the Sportsbooks.
 Relies on [Yygdrasil](https://github.com/tjkuri/yggdrasil) for its back end
 
 ## Current Features
-Displays a calculated 'My Line' for total points and compares it to the DK set line. If our line is higher than theirs the recommendation is Over, otherwise Under. 
+Displays a calculated 'My Line' for total points and compares it to the DK set line. If our line is higher than theirs the recommendation is Over, otherwise Under. Also shows a "Play" column, which shows how the current Draftkings Line would have fared following our recommendation over the teams last 3 games each (e.g. if DK line is 200.5 and the recommendation is Over, a 4-0-2 Play means that in the last 3 games for each of the two teams, 4 of them went Over 200.5, 0 pushed, and 2 went under).
 
 ## Roadmap
 Trying to keep this highlevel. Theres a [Journal.md](JOURNAL.md) page where Ill try to keep track of more 'nitty-gritty' details of some tool/design choices.

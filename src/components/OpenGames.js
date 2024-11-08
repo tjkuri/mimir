@@ -13,7 +13,7 @@ export default function OpenGames({ games }) {
                     <th className="px-4">Draftkings Line</th>
                     <th className="px-4">Discrepancy</th>
                     <th className="px-4">O/U</th>
-                    <th className="px-4">Play</th>
+                    <th className="px-4">Play (W-Push-L) </th>
                 </tr>
             </thead>
             <tbody>
