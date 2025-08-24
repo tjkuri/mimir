@@ -6,6 +6,7 @@ import "./index.css"
 
 import Home from './components/Home'
 import BasketBall from './components/Basketball'
+import NflFootball from './components/NflFootball'
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,6 +16,7 @@ root.render(
     <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/basketball" element={<BasketBall/>} />
+        <Route path="/nfl-football" element={<NflFootball/>} />
     </Routes>
   </Router>
   </div>
