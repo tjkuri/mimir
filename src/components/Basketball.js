@@ -73,7 +73,7 @@ export default function BasketBall() {
 
     return (
         <div className="flex flex-col justify-center items-center h-screen">
-            {isLoading && <div className="grid place-content-center bg-violet-600 px-4 py-24">
+            {isLoading && !error && <div className="grid place-content-center bg-violet-600 px-4 py-24">
                 <BarLoader />
             </div>}
             {error && <p>Error: {error.message}</p>}
