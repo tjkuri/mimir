@@ -17,7 +17,9 @@ export default function OpenGames({ games }) {
                 </tr>
             </thead>
             <tbody>
-                {games.map((game) => (<OpenGameRow key={game.id} game={game} />))}
+                {games.map((game, index) => (
+                    <OpenGameRow key={game.id} game={game} isEvenRow={index % 2 === 0} />)
+                    )}
             </tbody>
         </table>
     );

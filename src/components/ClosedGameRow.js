@@ -9,7 +9,7 @@ export default function ClosedGameRow({ game }) {
       result = game.home_team_score + game.visitor_team_score >= game.draftkings_line ? 'W' : 'L'
     }
     else{
-      result = game.home_team_score + game.visitor_team_score < game.draftkings_line ? 'W' : 'L'
+      result = game.home_team_score + game.visitor_team_score <= game.draftkings_line ? 'W' : 'L'
     }
   }
   return (
