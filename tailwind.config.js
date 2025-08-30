@@ -11,6 +11,8 @@ module.exports = {
       'naplesYellow': '#f4d35e',
       'ghostWhite': '#fbf9ff',
       'bittersweet': '#f25f5c',
+      'saffron': '#d97706',
+      'saffronDark': '#b45309',
     },
     fontFamily: {},
     extend: {},
