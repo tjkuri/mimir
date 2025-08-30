@@ -1,5 +1,28 @@
 # Journal
 
+## 2025-08-30
+
+**What changed**
+- New NFL page wiring:
+  - `NflFootball` now renders a centered layout with comfortable vertical spacing and a “Selected” status line.
+  - Added `QBSelect` component: pulls `/api/nfl/qbs`, shows a dropdown, and includes **quick-pick chips** for popular QBs.
+- Theme update: added `saffron` / `saffronDark` to Tailwind; quick-picks use saffron with dark text for contrast on `spaceCadet`.
+- Config: introduced `src/config.js` (`YGGDRASIL_URL`) + `.env.example` (`VITE_API_URL`).
+- Minor polish: consistent button sizing/spacing on home; selection text uses `verdigris`.
+
+**Decisions**
+- Keep the simple dropdown for now; upgrade to the hybrid **combobox + chips** when the list grows (backups/historical) or when search is desired.
+- Quick-picks use **slugs** from the API (`mahomes-patrick`, `allen-joshua`, `jackson-lamar`, `burrow-joe`, `daniels-jayden`, `herbert-justin`, `prescott-rayne`).
+
+**Why**
+- Fast path to an end-to-end flow: the page now hits a real backend route and supports one-tap popular players with clear visual hierarchy on the dark background.
+
+**Next up**
+- Wire the “analyze” path to the upcoming `/api/nfl/qb/passing-yards` endpoint.
+- Add loading & error states to the NFL page similar to Basketball.
+- (Later) Swap dropdown → combobox (typeahead, favorites/recents, team search) without changing the `onPick(player)` API.
+- (Later) Tabs/nested routes (`/nfl-football/qb`, `/nfl-football/team-totals`) when we add more dashboards.
+
 ## 03-21-2024
 Using some stuff from this https://www.hover.dev site. they have some cool front end things, saves me the trouble of struggling with react to get cool/modern looking things.
 
