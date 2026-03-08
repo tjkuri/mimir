@@ -12,6 +12,26 @@ function Row({ label, value, hint }) {
   );
 }
 
+function formatET(iso) {
+  if (!iso) return "—";
+  try {
+    const d = new Date(iso);
+    const fmt = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/New_York",
+      weekday: "short",
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return `${fmt.format(d)} ET`;
+  } catch {
+    return iso;
+  }
+}
+
 export default function OddsCard({ odds, event }) {
   if (!odds) return null;
 
@@ -32,7 +52,7 @@ export default function OddsCard({ odds, event }) {
 
       {event ? (
         <div className="text-xs text-gray-500 mb-2">
-          {event.away_team} @ {event.home_team} • {event.commence_time}
+          {event.away_team} @ {event.home_team} • {formatET(event.commence_time)}
         </div>
       ) : (
         <div className="text-xs text-gray-500 mb-2">No upcoming game scheduled</div>

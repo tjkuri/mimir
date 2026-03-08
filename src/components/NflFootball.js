@@ -6,7 +6,11 @@ import ScopeCard from "../components/ScopeCard";
 import HistogramMini from "../components/HistogramMini";
 import { YGGDRASIL_URL } from "../config";
 
-
+const SCOPES = [
+  { key: "career",         label: "Career" },
+  { key: "last_season",    label: "Last" },
+  { key: "current_season", label: "Current" },
+];
 
 export default function NflFootball() {
     const [picked, setPicked] = useState(null);
@@ -93,9 +97,9 @@ return (
 
             {/* Scope cards */}
             <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <ScopeCard label="Career" scope={analysis.distributions.scopes.career} line={line} />
-              <ScopeCard label="Last Season" scope={analysis.distributions.scopes.last_season} line={line} />
-              <ScopeCard label="Current Season" scope={analysis.distributions.scopes.current_season} line={line} />
+              {SCOPES.map(({ key, label }) => (
+                <ScopeCard key={key} label={label} scope={analysis.distributions.scopes[key]} line={line} />
+              ))}
             </div>
 
             {/* Histogram + scope toggle */}
@@ -105,7 +109,7 @@ return (
                   Histogram • <span className="text-ghostWhite">line: <b>{line ?? "—"}</b></span>
                 </div>
                 <div className="flex items-center gap-2">
-                  {["career", "last_season", "current_season"].map(key => (
+                  {SCOPES.map(({ key, label }) => (
                     <button
                       key={key}
                       className={`px-3 py-1 rounded-full text-sm ${
@@ -115,7 +119,7 @@ return (
                       }`}
                       onClick={() => setActiveScope(key)}
                     >
-                      {key === "career" ? "Career" : key === "last_season" ? "Last" : "Current"}
+                      {label}
                     </button>
                   ))}
                 </div>
