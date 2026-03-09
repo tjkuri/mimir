@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,19 +9,39 @@ export default function BasketBall() {
   const [games, setGames] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const fetchGames = useCallback((refreshOdds = false) => {
+    const url = YGGDRASIL_URL + '/api/nba/totals' + (refreshOdds ? '?refreshOdds=true' : '');
+    return axios.get(url)
+      .then(res => { setGames(res.data); setError(null); })
+      .catch(err => { console.error(err); setError(err); });
+  }, []);
 
   useEffect(() => {
-    axios.get(YGGDRASIL_URL + '/api/nba/totals')
-      .then(res => { setGames(res.data); setIsLoading(false); })
-      .catch(err => { console.error(err); setError(err); setIsLoading(false); });
-  }, []);
+    fetchGames().finally(() => setIsLoading(false));
+  }, [fetchGames]);
+
+  function handleRefreshOdds() {
+    setIsRefreshing(true);
+    fetchGames(true).finally(() => setIsRefreshing(false));
+  }
 
   const openGames = games.filter(g => g.status !== 'STATUS_FINAL');
   const closedGames = games.filter(g => g.status === 'STATUS_FINAL');
 
   return (
     <div className="flex flex-col items-center min-h-screen py-10 gap-6 bg-spaceCadet">
-      <h1 className="text-naplesYellow text-5xl font-bold">NBA Totals</h1>
+      <div className="flex flex-col items-center gap-3">
+        <h1 className="text-naplesYellow text-5xl font-bold">NBA Totals</h1>
+        <button
+          className="rounded-full px-5 py-1.5 text-sm bg-saffron text-white hover:bg-saffronDark disabled:opacity-50"
+          onClick={handleRefreshOdds}
+          disabled={isLoading || isRefreshing}
+        >
+          {isRefreshing ? 'Refreshing…' : 'Refresh Odds'}
+        </button>
+      </div>
 
       {isLoading && (
         <div className="flex items-center justify-center py-24">

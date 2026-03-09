@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function statusLabel(game) {
   if (game.status === 'STATUS_FINAL') return 'Final';
-  if (game.status === 'STATUS_SCHEDULED') return 'Upcoming';
   if (game.status === 'STATUS_IN_PROGRESS') {
     const q = game.period <= 4 ? `Q${game.period}` : `OT${game.period - 4}`;
     return `Live · ${q}`;
   }
-  return game.status_detail || game.status;
+  return null; // scheduled — handled by countdown
+}
+
+function formatCountdown(dateStr) {
+  const diff = new Date(dateStr) - Date.now();
+  if (diff <= 0) return 'Starting soon';
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  return h > 0 ? `Tips off in ${h}h ${m}m` : `Tips off in ${m}m`;
+}
+
+function Countdown({ dateStr }) {
+  const [label, setLabel] = useState(() => formatCountdown(dateStr));
+  useEffect(() => {
+    const id = setInterval(() => setLabel(formatCountdown(dateStr)), 60000);
+    return () => clearInterval(id);
+  }, [dateStr]);
+  return <span className="text-xs text-spaceCadet/60 font-medium">{label}</span>;
 }
 
 function RecBadge({ rec }) {
@@ -18,6 +34,14 @@ function RecBadge({ rec }) {
       {isOver ? '▲ OVER' : '▼ UNDER'}
     </span>
   );
+}
+
+function gapColor(discrepancy, recommendation) {
+  const abs = Math.abs(discrepancy);
+  const isOver = recommendation === 'O';
+  if (abs >= 5) return isOver ? 'text-verdigris font-bold' : 'text-bittersweet font-bold';
+  if (abs >= 2.5) return isOver ? 'text-verdigris' : 'text-bittersweet';
+  return 'text-spaceCadet/50';
 }
 
 function ResultBadge({ game }) {
@@ -39,6 +63,7 @@ function ResultBadge({ game }) {
 
 export default function NbaGameCard({ game }) {
   const isFinal = game.status === 'STATUS_FINAL';
+  const isScheduled = game.status === 'STATUS_SCHEDULED';
   const label = statusLabel(game);
 
   return (
@@ -48,10 +73,14 @@ export default function NbaGameCard({ game }) {
         <span className="font-bold text-lg">
           {game.away_team.abbreviation} @ {game.home_team.abbreviation}
         </span>
-        <span className="text-xs text-spaceCadet/60 font-medium">{label}</span>
+        {isScheduled && game.date
+          ? <Countdown dateStr={game.date} />
+          : <span className="text-xs text-spaceCadet/60 font-medium">{label}</span>
+        }
       </div>
 
-      {(isFinal || game.status === 'STATUS_IN_PROGRESS') && game.home_score != null && (
+      {/* Live / final score — show whenever game has started (any non-scheduled status) */}
+      {!isScheduled && game.home_score != null && (
         <div className="text-sm text-spaceCadet/80">
           {game.away_team.abbreviation} {game.away_score} – {game.home_score} {game.home_team.abbreviation}
           &nbsp;|&nbsp;Total: {(game.home_score ?? 0) + (game.away_score ?? 0)}
@@ -66,13 +95,22 @@ export default function NbaGameCard({ game }) {
         <span className="font-mono font-semibold">{game.my_line ?? '—'}</span>
 
         <span className="text-spaceCadet/60">DK line</span>
-        <span className="font-mono">{game.dk_line ?? '—'}</span>
+        <span className="font-mono flex items-center gap-2">
+          {game.dk_line ?? '—'}
+          {game.line_movement && (
+            <span className="text-xs text-spaceCadet/50">
+              (was {game.line_movement.from} {game.line_movement.to > game.line_movement.from ? '▲' : '▼'})
+            </span>
+          )}
+        </span>
 
         {!isFinal && game.discrepancy != null && (
           <>
             <span className="text-spaceCadet/60">Gap</span>
             <span className="font-mono flex items-center gap-2">
-              {game.discrepancy > 0 ? '+' : ''}{game.discrepancy}
+              <span className={gapColor(game.discrepancy, game.recommendation)}>
+                {game.discrepancy > 0 ? '+' : ''}{game.discrepancy}
+              </span>
               <RecBadge rec={game.recommendation} />
             </span>
           </>

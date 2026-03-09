@@ -1,5 +1,19 @@
 # Journal
 
+## 2026-03-09
+
+**What changed**
+- Tip-off countdown on scheduled game cards — shows "Tips off in 2h 15m" and ticks down every minute via a useEffect interval.
+- Discrepancy coloring: gap number is now colored by size and direction. ≥5 is bold verdigris/bittersweet, 2.5–5 is the same at normal weight, <2.5 is muted. Color is scoped to just the number span so it doesn't bleed into the recommendation badge.
+- Line movement display on the DK line row: shows "(was 223.0 ▼)" when the line has shifted since opening.
+- Refresh Odds button in the header — triggers `?refreshOdds=true`, shows a "Refreshing…" disabled state while in flight.
+- Fixed: score now shows during halftime and between-quarter breaks (was checking for STATUS_IN_PROGRESS specifically; changed to `!isScheduled`).
+
+**Why**
+- The badge text was invisible for UNDER because the parent row span had `text-bittersweet` which CSS-inherited into the badge, overriding `text-white`. Wrapping only the number in the colored span fixed it.
+- Halftime has its own ESPN status string, not STATUS_IN_PROGRESS, so the old condition missed it.
+
+
 ## 2026-03-08
 
 **What changed**
