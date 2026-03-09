@@ -2,92 +2,66 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { motion } from "framer-motion"; //For loading bar
-
-import { YGGDRASIL_URL } from '../config';  // Import backend address
-
-import ClosedGames from "./ClosedGames";
-import OpenGames from "./OpenGames";
-
-const variants = {
-    initial: {
-        scaleY: 0.5,
-        opacity: 0,
-    },
-    animate: {
-        scaleY: 1,
-        opacity: 1,
-        transition: {
-            repeat: Infinity,
-            repeatType: "mirror",
-            duration: 1,
-            ease: "circIn",
-        },
-    },
-};
-
-//Got the code for this loading bar from https://www.hover.dev/components/loaders
-const BarLoader = () => {
-    return (
-        <motion.div
-            transition={{
-                staggerChildren: 0.25,
-            }}
-            initial="initial"
-            animate="animate"
-            className="flex gap-1"
-        >
-            <motion.div variants={variants} className="h-12 w-2 bg-ghostWhite" />
-            <motion.div variants={variants} className="h-12 w-2 bg-ghostWhite" />
-            <motion.div variants={variants} className="h-12 w-2 bg-ghostWhite" />
-            <motion.div variants={variants} className="h-12 w-2 bg-ghostWhite" />
-            <motion.div variants={variants} className="h-12 w-2 bg-ghostWhite" />
-        </motion.div>
-    );
-};
+import { YGGDRASIL_URL } from '../config';
+import NbaGameCard from './NbaGameCard';
 
 export default function BasketBall() {
-    const [games, setGames] = useState([]);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+  const [games, setGames] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            axios.get(
-                YGGDRASIL_URL + '/api/nba/totals'
-            ).then(response => {
-                setGames(response.data);
-                setIsLoading(false)
-            }
-            ).catch(error => {
-                console.error(error);
-                setError(error)
-            });
-        }
-        fetchData();
-    }, []);
+  useEffect(() => {
+    axios.get(YGGDRASIL_URL + '/api/nba/totals')
+      .then(res => { setGames(res.data); setIsLoading(false); })
+      .catch(err => { console.error(err); setError(err); setIsLoading(false); });
+  }, []);
 
-    let closedGamesList = games.filter((game) => game.status === 'Final')
-    let openGamesList = games.filter((game) => game.status !== 'Final')
+  const openGames = games.filter(g => g.status !== 'STATUS_FINAL');
+  const closedGames = games.filter(g => g.status === 'STATUS_FINAL');
 
-    return (
-        <div className="flex flex-col justify-center items-center h-screen">
-            {isLoading && !error && <div className="grid place-content-center bg-violet-600 px-4 py-24">
-                <BarLoader />
-            </div>}
-            {error && <p>Error: {error.message}</p>}
-            {!isLoading && (
-                <div className="flex flex-col space-y-10">
-                    <OpenGames games={openGamesList} />
-                    <ClosedGames games={closedGamesList} />
-                </div>
-            )}
-            <Link to="/">
-                <button className="rounded-full px-8 py-2 mt-6 bg-bittersweet hover:bg-ghostWhite hover:text-verdigris">
-                    Go Home
-                </button>
-            </Link>
+  return (
+    <div className="flex flex-col items-center min-h-screen py-10 gap-6 bg-spaceCadet">
+      <h1 className="text-naplesYellow text-5xl font-bold">NBA Totals</h1>
+
+      {isLoading && (
+        <div className="flex items-center justify-center py-24">
+          <div className="w-10 h-10 border-4 border-ghostWhite border-t-transparent rounded-full animate-spin" />
         </div>
-    )
+      )}
+
+      {error && <p className="text-bittersweet">Error: {error.message}</p>}
+
+      {!isLoading && !error && (
+        <>
+          {openGames.length > 0 && (
+            <section className="w-full max-w-5xl flex flex-col gap-3 px-4">
+              <h2 className="text-naplesYellow text-xl font-semibold">Today&apos;s Games</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                {openGames.map(g => <NbaGameCard key={g.id} game={g} />)}
+              </div>
+            </section>
+          )}
+
+          {closedGames.length > 0 && (
+            <section className="w-full max-w-5xl flex flex-col gap-3 px-4">
+              <h2 className="text-naplesYellow text-xl font-semibold">Final</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                {closedGames.map(g => <NbaGameCard key={g.id} game={g} />)}
+              </div>
+            </section>
+          )}
+
+          {games.length === 0 && (
+            <p className="text-ghostWhite/60">No NBA games today.</p>
+          )}
+        </>
+      )}
+
+      <Link to="/">
+        <button className="rounded-full px-8 py-2 mt-6 bg-bittersweet hover:bg-ghostWhite hover:text-verdigris">
+          Go Home
+        </button>
+      </Link>
+    </div>
+  );
 }

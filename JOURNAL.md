@@ -1,5 +1,23 @@
 # Journal
 
+## 2026-03-08
+
+**What changed**
+- NBA page got a full visual overhaul. Replaced the table layout (OpenGames/ClosedGames + row components) with a card grid using a new `NbaGameCard` component.
+- One card handles both open and final games — open games show gap, recommendation badge (▲ OVER / ▼ UNDER), and W-P-L record; final games show score, total, and a result badge (W/L/Push).
+- Live in-progress scores now display on the card. Was basically a free lift since the backend was already returning them, just wasn't being rendered.
+- `Basketball.js` cleaned up: `bg-spaceCadet` background (fixed the violet-600 that was in there), CSS spinner instead of the framer-motion bar loader, responsive 1/2/3 column grid, section headers in naplesYellow.
+- Deleted `OpenGames.js`, `OpenGameRow.js`, `ClosedGames.js`, `ClosedGameRow.js`.
+
+**Decisions**
+- Single card component instead of separate open/closed rows. The data shape is the same either way, the status field just controls which fields get rendered.
+- Since the backend now pre-computes recommendation/record/discrepancy, the frontend has zero logic in it. Makes the card component basically dumb which is easier to reason about.
+
+**Why**
+- The table was functional but looked dated compared to the NFL page. Cards are easier to scan and feel more intentional. Also the table approach was going to get messy once we started adding more per-game data fields.
+- The backend doing the computation is cleaner separation of concerns anyway.
+
+
 ## 2025-08-30
 
 **What changed**
