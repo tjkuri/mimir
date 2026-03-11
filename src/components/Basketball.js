@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { YGGDRASIL_URL } from '../config';
@@ -31,11 +30,11 @@ export default function BasketBall() {
   const closedGames = games.filter(g => g.status === 'STATUS_FINAL');
 
   return (
-    <div className="flex flex-col items-center min-h-screen py-10 gap-6 bg-spaceCadet">
+    <div className="flex flex-col items-center gap-6">
       <div className="flex flex-col items-center gap-3">
-        <h1 className="text-naplesYellow text-5xl font-bold">NBA Totals</h1>
+        <h1 className="text-naplesYellow text-5xl font-bold font-cinzel tracking-wide">NBA Totals</h1>
         <button
-          className="rounded-full px-5 py-1.5 text-sm bg-saffron text-white hover:bg-saffronDark disabled:opacity-50"
+          className="rounded-full px-5 py-1.5 text-sm font-cinzel bg-saffron text-white hover:bg-saffronDark disabled:opacity-50"
           onClick={handleRefreshOdds}
           disabled={isLoading || isRefreshing}
         >
@@ -55,7 +54,7 @@ export default function BasketBall() {
         <>
           {openGames.length > 0 && (
             <section className="w-full max-w-5xl flex flex-col gap-3 px-4">
-              <h2 className="text-naplesYellow text-xl font-semibold">Today&apos;s Games</h2>
+              <h2 className="text-naplesYellow text-xl font-semibold font-cinzel tracking-wide">Today&apos;s Games</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {openGames.map(g => <NbaGameCard key={g.id} game={g} />)}
               </div>
@@ -64,7 +63,7 @@ export default function BasketBall() {
 
           {closedGames.length > 0 && (
             <section className="w-full max-w-5xl flex flex-col gap-3 px-4">
-              <h2 className="text-naplesYellow text-xl font-semibold">Final</h2>
+              <h2 className="text-naplesYellow text-xl font-semibold font-cinzel tracking-wide">Final</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {closedGames.map(g => <NbaGameCard key={g.id} game={g} />)}
               </div>
@@ -77,11 +76,6 @@ export default function BasketBall() {
         </>
       )}
 
-      <Link to="/">
-        <button className="rounded-full px-8 py-2 mt-6 bg-bittersweet hover:bg-ghostWhite hover:text-verdigris">
-          Go Home
-        </button>
-      </Link>
     </div>
   );
 }

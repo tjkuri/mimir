@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import QBSelect from "../components/QBSelect";
 import OddsCard from "../components/OddsCard";
 import ScopeCard from "../components/ScopeCard";
@@ -51,9 +50,9 @@ export default function NflFootball() {
 
 
 return (
-    <div className="flex flex-col items-center min-h-screen py-10 gap-6 bg-spaceCadet">
+    <div className="flex flex-col items-center gap-6">
       <div className="text-center flex flex-col items-center gap-6">
-        <h1 className="text-naplesYellow text-5xl font-bold">NFL QB Analysis</h1>
+        <h1 className="text-naplesYellow text-5xl font-bold font-cinzel tracking-wide">NFL QB Analysis</h1>
 
         <div className="mx-auto max-w-md">
           <QBSelect onPick={setPicked} />
@@ -62,7 +61,7 @@ return (
         {/* Action row */}
         <div className="flex items-center gap-3">
           <button
-            className="rounded-full px-6 py-2 bg-bittersweet text-white hover:bg-ghostWhite hover:text-verdigris disabled:opacity-50"
+            className="rounded-full px-6 py-2 font-cinzel bg-bittersweet text-white hover:bg-ghostWhite hover:text-verdigris disabled:opacity-50"
             onClick={() => runAnalysis()}
             disabled={!picked || status === "loading"}
           >
@@ -70,7 +69,7 @@ return (
           </button>
 
           <button
-            className="rounded-full px-6 py-2 bg-saffron text-white hover:bg-saffronDark disabled:opacity-50"
+            className="rounded-full px-6 py-2 font-cinzel bg-saffron text-white hover:bg-saffronDark disabled:opacity-50"
             onClick={() => runAnalysis({ refreshOdds: true })}
             disabled={!picked || status === "loading" || !analysis}
             title="Manual refresh (spends 1 credit)"
@@ -78,11 +77,6 @@ return (
             Refresh odds
           </button>
 
-          <Link to="/">
-            <button className="rounded-full px-6 py-2 bg-ghostWhite text-spaceCadet hover:bg-bittersweet hover:text-white">
-              Go Home
-            </button>
-          </Link>
         </div>
 
         {/* Errors */}
@@ -112,7 +106,7 @@ return (
                   {SCOPES.map(({ key, label }) => (
                     <button
                       key={key}
-                      className={`px-3 py-1 rounded-full text-sm ${
+                      className={`px-3 py-1 rounded-full text-sm font-cinzel ${
                         activeScope === key
                           ? "bg-verdigris text-white"
                           : "bg-ghostWhite text-spaceCadet hover:bg-verdigris/10"
