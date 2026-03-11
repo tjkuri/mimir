@@ -14,7 +14,11 @@ module.exports = {
       'saffron': '#d97706',
       'saffronDark': '#b45309',
     },
-    fontFamily: {},
+    fontFamily: {
+      'sans': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      'cinzel': ['Space Grotesk', 'sans-serif'],
+      'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+    },
     extend: {},
   },
   plugins: [],

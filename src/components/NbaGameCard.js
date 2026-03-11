@@ -28,9 +28,14 @@ function Countdown({ dateStr }) {
 
 function RecBadge({ rec }) {
   if (!rec) return null;
+  if (rec === 'P') return (
+    <span className="px-2 py-0.5 rounded-full text-xs font-bold font-cinzel bg-spaceCadet/20 text-spaceCadet/60">
+      PUSH
+    </span>
+  );
   const isOver = rec === 'O';
   return (
-    <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${isOver ? 'bg-verdigris text-white' : 'bg-bittersweet text-white'}`}>
+    <span className={`px-2 py-0.5 rounded-full text-xs font-bold font-cinzel ${isOver ? 'bg-verdigris text-white' : 'bg-bittersweet text-white'}`}>
       {isOver ? '▲ OVER' : '▼ UNDER'}
     </span>
   );
@@ -58,7 +63,7 @@ function ResultBadge({ game }) {
   } else {
     text = 'L'; cls = 'bg-bittersweet text-white';
   }
-  return <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${cls}`}>{text}</span>;
+  return <span className={`px-2 py-0.5 rounded-full text-xs font-bold font-cinzel ${cls}`}>{text}</span>;
 }
 
 export default function NbaGameCard({ game }) {
@@ -66,8 +71,16 @@ export default function NbaGameCard({ game }) {
   const isScheduled = game.status === 'STATUS_SCHEDULED';
   const label = statusLabel(game);
 
+  const accentBorder = game.recommendation === 'O'
+    ? 'border-l-4 border-verdigris'
+    : game.recommendation === 'U'
+    ? 'border-l-4 border-bittersweet'
+    : game.recommendation === 'P'
+    ? 'border-l-4 border-ghostWhite/30'
+    : 'border-l-4 border-transparent';
+
   return (
-    <div className="bg-ghostWhite text-spaceCadet rounded-2xl shadow p-4 flex flex-col gap-3">
+    <div className={`bg-ghostWhite text-spaceCadet rounded-2xl shadow p-4 flex flex-col gap-3 ${accentBorder}`}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <span className="font-bold text-lg">
@@ -98,13 +111,13 @@ export default function NbaGameCard({ game }) {
         <span className="font-mono flex items-center gap-2">
           {game.dk_line ?? '—'}
           {game.line_movement && (
-            <span className="text-xs text-spaceCadet/50">
+            <span className="text-xs text-spaceCadet/50 whitespace-nowrap">
               (was {game.line_movement.from} {game.line_movement.to > game.line_movement.from ? '▲' : '▼'})
             </span>
           )}
         </span>
 
-        {!isFinal && game.discrepancy != null && (
+        {!isFinal && game.discrepancy !== null && game.discrepancy !== undefined && (
           <>
             <span className="text-spaceCadet/60">Gap</span>
             <span className="font-mono flex items-center gap-2">

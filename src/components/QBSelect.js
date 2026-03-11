@@ -64,7 +64,7 @@ export default function QBSelect({ onPick, quickPicks = DEFAULT_QUICK_SLUGS }) {
                 setSelectedId(p.id);
                 onPick?.(p);
               }}
-              className="text-sm rounded-full px-3 py-1 bg-saffron text-spaceCadet
+              className="text-sm font-cinzel rounded-full px-3 py-1 bg-saffron text-spaceCadet
                 hover:bg-saffronDark focus-visible:outline-none
                 focus-visible:ring-2 focus-visible:ring-ghostWhite/40"
               title={`${p.name} • ${p.team_abbr}`}

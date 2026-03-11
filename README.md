@@ -8,7 +8,7 @@ Relies on [Yygdrasil](https://github.com/tjkuri/yggdrasil) for its back end
 
 ## Current Features
 
-**NBA Totals** — Card-based view of today's games. Shows a calculated 'My Line' (average total from the last 3 games each team played) vs the DraftKings line. If our line is higher the recommendation is Over, otherwise Under. Each card also shows a W-P-L record: how the DK line would have fared following our recommendation across those 6 recent games. In-progress games show the live score. Final games show the actual total and whether the play was a win, loss, or push.
+**NBA Totals** — Card-based view of today's games. Shows a calculated 'My Line' (average total from the last 3 games each team played) vs the DraftKings line. Recommendation is Over if my line is higher, Under if lower, Push if equal. Each card shows a W-P-L record across those 6 recent games, line movement when the DK line has shifted, and color-coded accent borders (teal = Over, red = Under). In-progress games show the live score. Final games show the actual result.
 
 **NFL QB Analysis** — Pick a QB, get their passing yards market odds from The Odds API alongside career/last season/current season distributions built from nflverse weekly stats. Includes histogram, percentiles, and over/under probabilities relative to the market line.
 
@@ -21,7 +21,5 @@ The NBA playoffs are coming up so I am starting to do the prepwork for implement
 Recently orderd this [book](https://www.amazon.com/Monte-Carlo-Bust-Simulations-Aspiring/dp/0857304852) on random sampling. Am working my way through it, hopefully by the time im done, inspiration will have struck for what baseball stat to apply the strategies/methods detailed.
 
 ### First Phase - NBA Totals
-The first MVP-esque feature was getting something simple up and running. Displays a calculated 'my-line' total from the average of the last few games from each team in a given match up and compares it to the line on DK (this is what I personally use, but the backend can be modified to include multiple sportsbooks in the response).
-
-Theres definetely still room here for improvement (front-end polishing and robustness) but next steps will probably involve other sports/stats
+Card-based view showing my calculated line vs DraftKings for every game on the slate. Persistent header navigation with sport switcher. Space Grotesk + Inter typography. Color-coded cards with over/under accent borders and line movement tracking.
 
