@@ -1,5 +1,20 @@
 # Journal
 
+## 2026-03-11
+
+**What changed**
+- EV now displays as profit per $100 bet instead of per $110.
+- Added an explicit `NO BET` pill to the signal row. Before this it just showed nothing, which was ambiguous — is the model quiet because it has no signal, or because the data loaded weird?
+- LOW confidence cards now mute the win probability and EV numbers in gray instead of rendering them in the same color as a HIGH confidence call.
+- Updated the Off/Def tooltip text to clarify the stats are across all recent games regardless of venue, not home/away split.
+
+**Why**
+- The $110 EV was technically correct for a standard -110 bet (you risk $110 to win $100) but nobody thinks in those units. Per $100 is just more intuitive and matches how most people frame betting math.
+- The missing NO BET label bugged me. A card with a confidence badge but no action badge looked incomplete — you'd have to infer from the absence of OVER/UNDER that the model was passing. Just say it.
+- The LOW confidence muting is kind of the most important one. A 72% win probability looks authoritative whether the model had 30 games of data or 3. Graying it out when the confidence is LOW communicates "this number exists but don't anchor on it." Keeps the signal visible without being misleading.
+- The Off/Def tooltip said "weighted toward recent games" which is accurate, but didn't say anything about venue. Someone might reasonably assume these are home/away splits. They're not — it's all recent games combined with a flat home-court adjustment on top.
+
+
 ## 2026-03-09
 
 **What changed**

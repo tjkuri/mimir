@@ -22,14 +22,15 @@ src/
   config.js               # YGGDRASIL_URL — reads REACT_APP_YGGDRASIL_URL env var, falls back to localhost:3001
   components/
     Home.js               # Landing page with sport navigation
-    Basketball.js         # NBA totals page — fetches /api/nba/totals
+    Basketball.js         # NBA totals page — fetches /api/nba/totals, renders NbaGameCard grid
+    NbaGameCard.js        # Unified card for open + final NBA games. Shows projected/DK lines, signal row
+                          #   (confidence badge, rec badge, NO BET badge, win prob, EV), team breakdown
+                          #   (collapsible). EV is per $100. LOW confidence mutes win prob + EV to gray.
     NflFootball.js        # NFL QB analysis page — orchestrates QBSelect, OddsCard, ScopeCard, HistogramMini
     QBSelect.js           # QB dropdown + quick-pick chips; fires onPick(player)
     OddsCard.js           # Displays consensus line, book lines, market dispersion
     ScopeCard.js          # Single scope stats card (mean, median, P(over), n, z-score)
     HistogramMini.js      # Custom SVG histogram with vertical line marker
-    OpenGames.js / OpenGameRow.js     # NBA open games table
-    ClosedGames.js / ClosedGameRow.js # NBA finished games table
 ```
 
 ## Key Patterns
