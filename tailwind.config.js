@@ -13,6 +13,14 @@ module.exports = {
       'bittersweet': '#f25f5c',
       'saffron': '#d97706',
       'saffronDark': '#b45309',
+      // Result outcome colors (colorblind-friendly: bright lime hit, dark red miss)
+      'hit': '#a3e635',
+      'miss': '#dc3515',
+      'hitText': '#166534',
+      'missText': '#991b1b',
+      'warnText': '#92400e',
+      'white': '#ffffff',
+      'transparent': 'transparent',
     },
     fontFamily: {
       'sans': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
