@@ -8,7 +8,7 @@ Relies on [Yygdrasil](https://github.com/tjkuri/yggdrasil) for its back end
 
 ## Current Features
 
-**NBA Totals** — Card-based view of today's games. Each card shows a projected total (O/D split model across the last 10 games per team, recency-weighted) vs the DraftKings line, with a signal row: confidence badge (HIGH/MEDIUM/LOW), Over/Under/NO BET recommendation, win probability, and expected value (per $100 bet). LOW confidence cards mute the win prob and EV so you don't anchor on numbers from thin data. Line movement shows when the DK line has shifted since opening. Color-coded accent borders (teal = Over, red = Under). In-progress games show the live score; final games show the actual result (W/L/Push relative to the prediction).
+**NBA Totals** — Card-based view of today's games. Each card shows a projected total (O/D split model across the last 10 games per team, recency-weighted; OT games use regulation-only scores so inflated totals don't skew the model) vs the DraftKings line, with a signal row: confidence badge (HIGH/MEDIUM/LOW), Over/Under/NO BET recommendation, win probability, and expected value (per $100 bet). LOW confidence cards mute the win prob and EV so you don't anchor on numbers from thin data. Line movement shows when the DK line has shifted since opening. Color-coded accent borders (teal = Over, red = Under). In-progress games show the live score; final games show the actual result (W/L/Push relative to the prediction).
 
 **NFL QB Analysis** — Pick a QB, get their passing yards market odds from The Odds API alongside career/last season/current season distributions built from nflverse weekly stats. Includes histogram, percentiles, and over/under probabilities relative to the market line.
 
