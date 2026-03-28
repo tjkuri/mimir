@@ -7,6 +7,7 @@ import "./index.css"
 import Layout from './components/Layout';
 import BasketBall from './components/Basketball';
 import NflFootball from './components/NflFootball';
+import Baseball from './components/Baseball';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<BasketBall />} />
         <Route path="/basketball" element={<BasketBall />} />
         <Route path="/nfl" element={<NflFootball />} />
+        <Route path="/mlb" element={<Baseball />} />
         <Route path="/nfl-football" element={<Navigate to="/nfl" replace />} />
       </Route>
     </Routes>

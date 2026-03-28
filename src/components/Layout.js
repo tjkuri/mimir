@@ -5,6 +5,7 @@ export default function Layout() {
   const { pathname } = useLocation();
   const isNba = pathname === '/' || pathname === '/basketball';
   const isNfl = pathname === '/nfl';
+  const isMlb = pathname === '/mlb';
 
   return (
     <div className="min-h-screen" style={{ background: 'radial-gradient(ellipse at 50% 0%, #1f1040 0%, #1c2541 50%, #0a1020 100%)' }}>
@@ -24,9 +25,12 @@ export default function Layout() {
             >
               NFL
             </Link>
-            <span className="font-cinzel text-sm tracking-wide text-ghostWhite/20 cursor-not-allowed select-none">
+            <Link
+              to="/mlb"
+              className={`font-cinzel text-sm tracking-wide transition-colors ${isMlb ? 'text-naplesYellow' : 'text-ghostWhite/50 hover:text-ghostWhite'}`}
+            >
               Baseball
-            </span>
+            </Link>
           </nav>
         </div>
       </header>
